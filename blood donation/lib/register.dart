@@ -33,9 +33,9 @@ class _RegisterPageState extends State<RegisterPage> {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8.0),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30.0), // Make it oval-shaped
+        borderRadius: BorderRadius.circular(30.0), 
         color: Colors.white,
-        border: Border.all(color: Colors.red), // Red border
+        border: Border.all(color: Colors.red), 
         boxShadow: [
           BoxShadow(
             color: Colors.white,
@@ -65,8 +65,8 @@ class _RegisterPageState extends State<RegisterPage> {
       margin: EdgeInsets.symmetric(vertical: 8.0),
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30.0), // Make it oval-shaped
-        border: Border.all(color: Colors.red), // Red border
+        borderRadius: BorderRadius.circular(30.0), 
+        border: Border.all(color: Colors.red), 
         color: Colors.white,
         boxShadow: [
           BoxShadow(
@@ -102,89 +102,92 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void signUp() {
-    // Placeholder for the signup functionality
+    
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text('Create Account clicked')));
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Create Your Account',
-          style: TextStyle(color: Colors.white),
+    return SafeArea(
+      top: true, 
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Create Your Account',
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.red, 
+          elevation: 0.0,
         ),
-        backgroundColor: Colors.red, // Red background color
-        elevation: 0.0,
-      ),
-      backgroundColor: Colors.white, // White background color
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _buildOvalTextFieldWithIcon(
-              controller: _firstNameController,
-              labelText: 'First Name',
-              icon: Icons.person,
-            ),
-            _buildOvalTextFieldWithIcon(
-              controller: _lastNameController,
-              labelText: 'Last Name',
-              icon: Icons.person,
-            ),
-            _buildOvalTextFieldWithIcon(
-              controller: _BoolGroopController,
-              labelText: 'Bool Groop',
-              icon: Icons.favorite, // Blood icon
-            ),
-            _buildOvalTextFieldWithIcon(
-              controller: _emailController,
-              labelText: 'Email',
-              icon: Icons.email,
-            ),
-            _buildOvalTextFieldWithIcon(
-              controller: _contactNoController,
-              labelText: 'Contact No',
-              icon: Icons.phone,
-            ),
-            _buildGenderDropdown(),
-            _buildOvalTextFieldWithIcon(
-              controller: _usernameController,
-              labelText: 'Username',
-              icon: Icons.account_circle,
-            ),
-            _buildOvalTextFieldWithIcon(
-              controller: _passwordController,
-              labelText: 'Password',
-              icon: Icons.lock,
-            ),
-            _buildOvalTextFieldWithIcon(
-              controller: _retypePasswordController,
-              labelText: 'Retype Password',
-              icon: Icons.lock,
-            ),
+        backgroundColor: Colors.white, 
+        body: SingleChildScrollView(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _buildOvalTextFieldWithIcon(
+                controller: _firstNameController,
+                labelText: 'First Name',
+                icon: Icons.person,
+              ),
+              _buildOvalTextFieldWithIcon(
+                controller: _lastNameController,
+                labelText: 'Last Name',
+                icon: Icons.person,
+              ),
+              _buildOvalTextFieldWithIcon(
+                controller: _BoolGroopController,
+                labelText: 'Bool Groop',
+                icon: Icons.favorite, // Blood icon
+              ),
+              _buildOvalTextFieldWithIcon(
+                controller: _emailController,
+                labelText: 'Email',
+                icon: Icons.email,
+              ),
+              _buildOvalTextFieldWithIcon(
+                controller: _contactNoController,
+                labelText: 'Contact No',
+                icon: Icons.phone,
+              ),
+              _buildGenderDropdown(),
+              _buildOvalTextFieldWithIcon(
+                controller: _usernameController,
+                labelText: 'Username',
+                icon: Icons.account_circle,
+              ),
+              _buildOvalTextFieldWithIcon(
+                controller: _passwordController,
+                labelText: 'Password',
+                icon: Icons.lock,
+              ),
+              _buildOvalTextFieldWithIcon(
+                controller: _retypePasswordController,
+                labelText: 'Retype Password',
+                icon: Icons.lock,
+              ),
 
-            // Updated TextField with blood icon
+              
 
-            SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Home()));
-              }, // Call the signUp method here
-              child: Text('Create Account',
-                  style: TextStyle(color: Colors.white)), // White text color
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red, // Red button color
-                elevation: 0.0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0),
+              SizedBox(height: 16.0),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => Home()));
+                }, 
+                child: Text('Create Account',
+                    style: TextStyle(color: Colors.white)), 
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red, 
+                  elevation: 0.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
