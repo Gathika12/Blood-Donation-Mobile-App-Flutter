@@ -1,7 +1,5 @@
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:practice02/home.dart';
+import 'package:practice02/register.dart';
 //import 'package:practice02/home.dart';
 //import 'package:practice02/register.dart';
 //import 'package:practice02/welcome.dart';
@@ -26,7 +24,7 @@ void main() async {
   }
 */
   runApp(MaterialApp(
-    home: DashboardPage(), // Use HomePage widget as the home page
+    home: RegisterPage(), // Use HomePage widget as the home page
   ));
 }
 
