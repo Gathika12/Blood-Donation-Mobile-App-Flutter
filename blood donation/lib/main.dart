@@ -19,7 +19,7 @@ void main() async {
   }
 */
   runApp(MaterialApp(
-    home: DonatePage(), // Use HomePage widget as the home page
+    home: DonatePage(), // Use HomePage widget as the home pag
   ));
 }
 

@@ -33,9 +33,9 @@ class _RegisterPageState extends State<RegisterPage> {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8.0),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30.0), 
+        borderRadius: BorderRadius.circular(30.0),
         color: Colors.white,
-        border: Border.all(color: Colors.red), 
+        border: Border.all(color: Colors.red),
         boxShadow: [
           BoxShadow(
             color: Colors.white,
@@ -65,8 +65,8 @@ class _RegisterPageState extends State<RegisterPage> {
       margin: EdgeInsets.symmetric(vertical: 8.0),
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30.0), 
-        border: Border.all(color: Colors.red), 
+        borderRadius: BorderRadius.circular(30.0),
+        border: Border.all(color: Colors.red),
         color: Colors.white,
         boxShadow: [
           BoxShadow(
@@ -102,7 +102,6 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void signUp() {
-    
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text('Create Account clicked')));
   }
@@ -110,17 +109,17 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      top: true, 
+      top: true,
       child: Scaffold(
         appBar: AppBar(
           title: Text(
             'Create Your Account',
             style: TextStyle(color: Colors.white),
           ),
-          backgroundColor: Colors.red, 
+          backgroundColor: Colors.red,
           elevation: 0.0,
         ),
-        backgroundColor: Colors.white, 
+        backgroundColor: Colors.white,
         body: SingleChildScrollView(
           padding: EdgeInsets.all(16.0),
           child: Column(
@@ -138,7 +137,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               _buildOvalTextFieldWithIcon(
                 controller: _BoolGroopController,
-                labelText: 'Bool Groop',
+                labelText: 'Blood Group',
                 icon: Icons.favorite, // Blood icon
               ),
               _buildOvalTextFieldWithIcon(
@@ -167,19 +166,16 @@ class _RegisterPageState extends State<RegisterPage> {
                 labelText: 'Retype Password',
                 icon: Icons.lock,
               ),
-
-              
-
               SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
                       context, MaterialPageRoute(builder: (context) => Home()));
-                }, 
+                },
                 child: Text('Create Account',
-                    style: TextStyle(color: Colors.white)), 
+                    style: TextStyle(color: Colors.white)),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red, 
+                  backgroundColor: Colors.red,
                   elevation: 0.0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),
