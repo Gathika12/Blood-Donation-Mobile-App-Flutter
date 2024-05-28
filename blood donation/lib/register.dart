@@ -20,7 +20,7 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _retypePasswordController = TextEditingController();
-  TextEditingController _locationController = TextEditingController();
+
   TextEditingController _BoolGroopController = TextEditingController();
 
   String? _selectedGender;
