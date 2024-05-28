@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:practice02/register.dart';
-//import 'package:practice02/home.dart';
-//import 'package:practice02/register.dart';
-//import 'package:practice02/welcome.dart';
-//import 'login.dart';
-//import 'welcome.dart';
-//import 'register.dart'; // Import login.dart where HomePage widget is defined
+import 'package:practice02/home.dart';
+import 'package:practice02/register.dart';
+import 'package:practice02/welcome.dart';
+import 'login.dart';
+import 'welcome.dart';
+import 'register.dart';
 
 void main() async {
   /*WidgetsFlutterBinding.ensureInitialized();
