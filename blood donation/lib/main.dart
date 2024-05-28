@@ -1,12 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:practice02/home.dart';
-import 'package:practice02/register.dart';
-import 'package:practice02/welcome.dart';
-import 'login.dart';
-import 'welcome.dart';
-import 'register.dart'; // Import login.dart where HomePage widget is defined
+//import 'package:practice02/home.dart';
+//import 'package:practice02/register.dart';
+//import 'package:practice02/welcome.dart';
+//import 'login.dart';
+//import 'welcome.dart';
+//import 'register.dart'; // Import login.dart where HomePage widget is defined
 
 void main() async {
   /*WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +25,7 @@ void main() async {
   }
 */
   runApp(MaterialApp(
-    home: Welcome(), // Use HomePage widget as the home page
+    home: MyAppBar(), // Use HomePage widget as the home page
   ));
 }
 
