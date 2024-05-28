@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:practice02/register.dart';
-import 'package:practice02/home.dart';
-import 'package:practice02/register.dart';
-import 'package:practice02/welcome.dart';
-import 'login.dart';
-import 'welcome.dart';
-import 'register.dart';
+import 'package:practice02/instruction.dart';
 
 void main() async {
   /*WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +18,7 @@ void main() async {
   }
 */
   runApp(MaterialApp(
-    home: RegisterPage(), // Use HomePage widget as the home page
+    home: BloodDonationGuidelines(), // Use HomePage widget as the home page
   ));
 }
 
