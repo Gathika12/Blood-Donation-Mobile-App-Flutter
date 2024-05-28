@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:practice02/donate.dart';
 import 'package:practice02/instruction.dart';
 
 void main() async {
@@ -18,7 +19,7 @@ void main() async {
   }
 */
   runApp(MaterialApp(
-    home: BloodDonationGuidelines(), // Use HomePage widget as the home page
+    home: DonatePage(), // Use HomePage widget as the home page
   ));
 }
 
