@@ -6,14 +6,14 @@ class DashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(60.0), // Set the preferred height for the AppBar
+        preferredSize: Size.fromHeight(60.0), 
         child: AppBar(
-          backgroundColor: Colors.red, // Set the background color to red
-          automaticallyImplyLeading: false, // Hide the automatically generated back button
+          backgroundColor: Colors.red, 
+          automaticallyImplyLeading: false, 
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.pop(context); // Navigate back to the previous screen (LoginPage.dart)
+              Navigator.pop(context); 
             },
           ),
         ),
@@ -21,7 +21,7 @@ class DashboardPage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            SizedBox(height: 20), // Add space at the top of the screen
+            SizedBox(height: 20), 
             Expanded(
               child: Center(
                 child: Column(
@@ -29,7 +29,7 @@ class DashboardPage extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        // Handle donate button press
+                        
                       },
                       style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.zero,
@@ -45,14 +45,14 @@ class DashboardPage extends StatelessWidget {
                     SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () {
-                        // Handle guide button press
+                        
                       },
                       child: Text('Guide'),
                     ),
                     SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () {
-                        // Handle donate button press
+                        
                       },
                       style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.zero,
@@ -68,7 +68,7 @@ class DashboardPage extends StatelessWidget {
                     SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () {
-                        // Handle donate button press
+                        
                       },
                       child: Text('Donate'),
                     ),
