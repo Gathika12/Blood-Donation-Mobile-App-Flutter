@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:practice02/donate.dart';
-import 'package:practice02/instruction.dart';
+import 'package:practice02/register.dart';
+
 
 void main() async {
   /*WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +19,9 @@ void main() async {
   }
 */
   runApp(MaterialApp(
-    home: DonatePage(), // Use HomePage widget as the home pag
+
+    home: RegisterPage(),
+
   ));
 }
 

@@ -20,10 +20,10 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _retypePasswordController = TextEditingController();
-
-  TextEditingController _BoolGroopController = TextEditingController();
+  TextEditingController _locationController = TextEditingController();
 
   String? _selectedGender;
+  String? _selectedBloodGroup;
 
   Widget _buildOvalTextFieldWithIcon({
     required TextEditingController controller,
@@ -60,6 +60,48 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
+  Widget _buildBloodGroupDropdown() {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 8.0),
+      padding: EdgeInsets.symmetric(horizontal: 20.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30.0),
+        border: Border.all(color: Colors.red),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 5.0,
+            offset: Offset(0, 2),
+          ),
+        ],
+      ),
+      child: DropdownButtonFormField<String>(
+        value: _selectedBloodGroup,
+        decoration: InputDecoration(
+          labelText: 'Select Blood Group',
+          prefixIcon: Icon(Icons.bloodtype),
+          border: InputBorder.none,
+        ),
+        onChanged: (newValue) {
+          setState(() {
+            _selectedBloodGroup = newValue;
+          });
+        },
+        items: ['Select Blood Group','A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
+            .map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(
+              value,
+              style: TextStyle(color: Colors.blueAccent),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
   Widget _buildGenderDropdown() {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8.0),
@@ -79,7 +121,8 @@ class _RegisterPageState extends State<RegisterPage> {
       child: DropdownButtonFormField<String>(
         value: _selectedGender,
         decoration: InputDecoration(
-          hintText: 'Gender',
+          labelText: 'Gender',
+          prefixIcon: Icon(Icons.people),
           border: InputBorder.none,
         ),
         onChanged: (newValue) {
@@ -87,13 +130,13 @@ class _RegisterPageState extends State<RegisterPage> {
             _selectedGender = newValue;
           });
         },
-        items: ['Male', 'Female', 'Other']
+        items: ['Select Gender','Male', 'Female', 'Other']
             .map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
             child: Text(
               value,
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.blueAccent),
             ),
           );
         }).toList(),
@@ -108,82 +151,77 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      top: true,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Create Your Account',
-            style: TextStyle(color: Colors.white),
-          ),
-          backgroundColor: Colors.red,
-          elevation: 0.0,
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Create Your Account',
+          style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _buildOvalTextFieldWithIcon(
-                controller: _firstNameController,
-                labelText: 'First Name',
-                icon: Icons.person,
-              ),
-              _buildOvalTextFieldWithIcon(
-                controller: _lastNameController,
-                labelText: 'Last Name',
-                icon: Icons.person,
-              ),
-              _buildOvalTextFieldWithIcon(
-                controller: _BoolGroopController,
-                labelText: 'Blood Group',
-                icon: Icons.favorite, // Blood icon
-              ),
-              _buildOvalTextFieldWithIcon(
-                controller: _emailController,
-                labelText: 'Email',
-                icon: Icons.email,
-              ),
-              _buildOvalTextFieldWithIcon(
-                controller: _contactNoController,
-                labelText: 'Contact No',
-                icon: Icons.phone,
-              ),
-              _buildGenderDropdown(),
-              _buildOvalTextFieldWithIcon(
-                controller: _usernameController,
-                labelText: 'Username',
-                icon: Icons.account_circle,
-              ),
-              _buildOvalTextFieldWithIcon(
-                controller: _passwordController,
-                labelText: 'Password',
-                icon: Icons.lock,
-              ),
-              _buildOvalTextFieldWithIcon(
-                controller: _retypePasswordController,
-                labelText: 'Retype Password',
-                icon: Icons.lock,
-              ),
-              SizedBox(height: 16.0),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => Home()));
-                },
-                child: Text('Create Account',
-                    style: TextStyle(color: Colors.white)),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
-                  elevation: 0.0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                ),
-              ),
-            ],
-          ),
+        backgroundColor: Colors.red, 
+        elevation: 0.0,
+      ),
+      backgroundColor: Colors.white, 
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min, 
+          children: [
+            _buildOvalTextFieldWithIcon(
+              controller: _firstNameController,
+              labelText: 'First Name',
+              icon: Icons.person,
+            ),
+            _buildOvalTextFieldWithIcon(
+              controller: _lastNameController,
+              labelText: 'Last Name',
+              icon: Icons.person,
+            ),
+            _buildGenderDropdown(), 
+            _buildBloodGroupDropdown(),
+            _buildOvalTextFieldWithIcon(
+              controller: _emailController,
+              labelText: 'Email',
+              icon: Icons.email,
+            ),
+            _buildOvalTextFieldWithIcon(
+              controller: _contactNoController,
+              labelText: 'Contact No',
+              icon: Icons.phone,
+            ),
+            _buildOvalTextFieldWithIcon(
+              controller: _usernameController,
+              labelText: 'Username',
+              icon: Icons.account_circle,
+            ),
+            _buildOvalTextFieldWithIcon(
+              controller: _passwordController,
+              labelText: 'Password',
+              icon: Icons.lock,
+            ),
+            _buildOvalTextFieldWithIcon(
+              controller: _retypePasswordController,
+              labelText: 'Retype Password',
+              icon: Icons.lock,
+            ),
+
+            SizedBox(height: 16.0),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Home()));
+              },
+              child: Text('Create Account',
+                  style: TextStyle(color: Colors.white)),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                elevation: 0.0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                )
+              )
+            )
+          ],
         ),
       ),
     );
@@ -198,7 +236,6 @@ class _RegisterPageState extends State<RegisterPage> {
     _usernameController.dispose();
     _passwordController.dispose();
     _retypePasswordController.dispose();
-    _BoolGroopController.dispose();
     super.dispose();
   }
 }
