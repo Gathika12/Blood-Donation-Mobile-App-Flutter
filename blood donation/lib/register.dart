@@ -1,13 +1,9 @@
-<<<<<<< HEAD
-import 'package:flutter/material.dart';
-=======
 import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:practice02/login.dart';
->>>>>>> Ashen
 
 void main() {
   runApp(MaterialApp(
@@ -33,19 +29,13 @@ class _RegisterPageState extends State<RegisterPage> {
 
   String? _selectedGender;
   String? _selectedBloodGroup;
-  bool _obscurePassword = true;
 
   Widget _buildOvalTextFieldWithIcon({
     required TextEditingController controller,
     required String labelText,
     required IconData icon,
-<<<<<<< HEAD
-    bool obscureText = false,
-    bool isPassword = false,
-=======
     bool isPassword = false,
     required String? Function(String?)? validator,
->>>>>>> Ashen
   }) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8.0),
@@ -63,30 +53,13 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
       child: TextFormField(
         controller: controller,
-<<<<<<< HEAD
-        obscureText: isPassword ? _obscurePassword : obscureText,
-=======
         obscureText: isPassword,
->>>>>>> Ashen
         decoration: InputDecoration(
           labelText: labelText,
           prefixIcon: Icon(
             icon,
             color: Colors.blueAccent,
           ),
-          suffixIcon: isPassword
-              ? IconButton(
-                  icon: Icon(
-                    _obscurePassword ? Icons.visibility : Icons.visibility_off,
-                    color: Colors.blueAccent,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _obscurePassword = !_obscurePassword;
-                    });
-                  },
-                )
-              : null,
           border: InputBorder.none,
           contentPadding:
               EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
@@ -104,7 +77,7 @@ class _RegisterPageState extends State<RegisterPage> {
   }) async {
     final serviceId = 'service_na7bm48';
     final templateId = 'template_l0yxn67';
-    final userId = 'your_user_id'; 
+    final userId = 'your_user_id';
 
     final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
     final response = await http.post(
@@ -155,7 +128,15 @@ class _RegisterPageState extends State<RegisterPage> {
           });
         },
         items: [
-          'Select Blood Group', 'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'
+          'Select Blood Group',
+          'A+',
+          'A-',
+          'B+',
+          'B-',
+          'AB+',
+          'AB-',
+          'O+',
+          'O-'
         ].map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
@@ -203,9 +184,8 @@ class _RegisterPageState extends State<RegisterPage> {
             _selectedGender = newValue;
           });
         },
-        items: [
-          'Select Gender', 'Male', 'Female', 'Other'
-        ].map<DropdownMenuItem<String>>((String value) {
+        items: ['Select Gender', 'Male', 'Female', 'Other']
+            .map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
             child: Text(
@@ -257,72 +237,8 @@ class _RegisterPageState extends State<RegisterPage> {
         elevation: 0.0,
       ),
       backgroundColor: Colors.white,
-<<<<<<< HEAD
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _buildOvalTextFieldWithIcon(
-              controller: _firstNameController,
-              labelText: 'First Name',
-              icon: Icons.person,
-            ),
-            _buildOvalTextFieldWithIcon(
-              controller: _lastNameController,
-              labelText: 'Last Name',
-              icon: Icons.person,
-            ),
-            _buildGenderDropdown(),
-            _buildBloodGroupDropdown(),
-            _buildOvalTextFieldWithIcon(
-              controller: _emailController,
-              labelText: 'Email',
-              icon: Icons.email,
-            ),
-            _buildOvalTextFieldWithIcon(
-              controller: _contactNoController,
-              labelText: 'Contact No',
-              icon: Icons.phone,
-            ),
-            _buildOvalTextFieldWithIcon(
-              controller: _usernameController,
-              labelText: 'Username',
-              icon: Icons.account_circle,
-            ),
-            _buildOvalTextFieldWithIcon(
-              controller: _passwordController,
-              labelText: 'Password',
-              icon: Icons.lock,
-              obscureText: true,
-              isPassword: true,
-            ),
-            _buildOvalTextFieldWithIcon(
-              controller: _retypePasswordController,
-              labelText: 'Retype Password',
-              icon: Icons.lock,
-              obscureText: true,
-              isPassword: true,
-            ),
-            SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () {
-                // Handle sign up logic here
-                signUp();
-              },
-              child:
-                  Text('Create Account', style: TextStyle(color: Colors.white)),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
-                elevation: 0.0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                ),
-              ),
-            ),
-          ],
-=======
-      body: SafeArea(  // Added SafeArea here
+      body: SafeArea(
+        // Added SafeArea here
         child: SingleChildScrollView(
           child: Form(
             key: _formKey,
@@ -426,7 +342,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: signUp,
-                  child: Text('Create Account', style: TextStyle(color: Colors.white)),
+                  child: Text('Create Account',
+                      style: TextStyle(color: Colors.white)),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.red,
                     elevation: 0.0,
@@ -438,7 +355,6 @@ class _RegisterPageState extends State<RegisterPage> {
               ],
             ),
           ),
->>>>>>> Ashen
         ),
       ),
     );
