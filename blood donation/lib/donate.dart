@@ -9,18 +9,18 @@ void main() {
 
 class DonatePage extends StatefulWidget {
   @override
-  _DonatePageState createState() => _DonatePageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _DonatePageState extends State<DonatePage> {
+class _RegisterPageState extends State<DonatePage> {
   TextEditingController _fullNameController = TextEditingController();
   TextEditingController _LocationController = TextEditingController();
-  TextEditingController _BloodGroupController = TextEditingController();
   TextEditingController _DateController = TextEditingController();
   TextEditingController _TimeController = TextEditingController();
+  TextEditingController _PriordonationController = TextEditingController();
   TextEditingController _AllergiesController = TextEditingController();
-  String _priorDonation = 'No';
-  String _bloodGroup = 'A+';
+
+  String? _selectedGender;
 
   Widget _buildOvalTextFieldWithIcon({
     required TextEditingController controller,
@@ -102,54 +102,9 @@ class _DonatePageState extends State<DonatePage> {
     );
   }
 
-  Widget _buildOvalDropdown({
-    required String labelText,
-    required IconData icon,
-    required BuildContext context,
-    required String currentValue,
-    required List<String> items,
-    required Function(String?) onChanged,
-  }) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 8.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30.0),
-        color: Colors.white,
-        border: Border.all(color: Colors.red),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.white,
-            blurRadius: 5.0,
-            offset: Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: DropdownButtonFormField<String>(
-              decoration: InputDecoration(
-                labelText: labelText,
-                prefixIcon: Icon(
-                  icon,
-                  color: Colors.blueAccent,
-                ),
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.only(
-                    left: 20.0, right: 10.0, top: 16.0, bottom: 16.0),
-              ),
-              items: items.map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-              onChanged: onChanged,
-            ),
-          ),
-        ],
-      ),
-    );
+  void signUp() {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text('Create Account clicked')));
   }
 
   @override
@@ -183,18 +138,6 @@ class _DonatePageState extends State<DonatePage> {
                 icon: Icons.location_city,
                 context: context,
               ),
-              _buildOvalDropdown(
-                labelText: 'Blood Group',
-                icon: Icons.bloodtype,
-                context: context,
-                currentValue: _bloodGroup,
-                items: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
-                onChanged: (String? newValue) {
-                  setState(() {
-                    _bloodGroup = newValue!;
-                  });
-                },
-              ),
               _buildOvalTextFieldWithIcon(
                 controller: _DateController,
                 labelText: 'Date',
@@ -205,26 +148,20 @@ class _DonatePageState extends State<DonatePage> {
               _buildOvalTextFieldWithIcon(
                 controller: _TimeController,
                 labelText: 'Time',
-                icon: Icons.access_time,
+                icon: Icons.time_to_leave,
                 context: context,
                 isTimeField: true,
               ),
-              _buildOvalDropdown(
-                labelText: 'Prior Donation',
+              _buildOvalTextFieldWithIcon(
+                controller: _PriordonationController,
+                labelText: 'prior donation',
                 icon: Icons.card_giftcard,
                 context: context,
-                currentValue: _priorDonation,
-                items: ['Yes', 'No'],
-                onChanged: (String? newValue) {
-                  setState(() {
-                    _priorDonation = newValue!;
-                  });
-                },
               ),
               _buildOvalTextFieldWithIcon(
                 controller: _AllergiesController,
                 labelText: 'Allergies/diseases',
-                icon: Icons.local_hospital,
+                icon: Icons.lock,
                 context: context,
               ),
               SizedBox(height: 16.0),
@@ -254,9 +191,9 @@ class _DonatePageState extends State<DonatePage> {
   void dispose() {
     _fullNameController.dispose();
     _LocationController.dispose();
-    _BloodGroupController.dispose();
     _DateController.dispose();
     _TimeController.dispose();
+    _PriordonationController.dispose();
     _AllergiesController.dispose();
     super.dispose();
   }
