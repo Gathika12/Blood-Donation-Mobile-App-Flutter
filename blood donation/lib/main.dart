@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:practice02/donate.dart';
 import 'package:practice02/home.dart';
 import 'package:practice02/login.dart';
 import 'package:practice02/register.dart';
@@ -21,7 +22,7 @@ void main() async {
   }
 */
   runApp(MaterialApp(
-    home: Welcome(),
+    home: DonatePage(),
   ));
 }
 
