@@ -31,7 +31,7 @@ class DashboardPage extends StatelessWidget {
                       children: [
                         ElevatedButton(
                           onPressed: () {
-                            
+                            // Add your onPressed code here!
                           },
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.zero,
@@ -47,14 +47,14 @@ class DashboardPage extends StatelessWidget {
                         SizedBox(height: 20),
                         ElevatedButton(
                           onPressed: () {
-                            
+                            // Add your onPressed code here!
                           },
                           child: Text('Guide'),
                         ),
                         SizedBox(height: 20),
                         ElevatedButton(
                           onPressed: () {
-                            
+                            // Add your onPressed code here!
                           },
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.zero,
@@ -70,7 +70,7 @@ class DashboardPage extends StatelessWidget {
                         SizedBox(height: 20),
                         ElevatedButton(
                           onPressed: () {
-                            
+                            // Add your onPressed code here!
                           },
                           child: Text('Donate'),
                         ),
@@ -85,7 +85,7 @@ class DashboardPage extends StatelessWidget {
               right: 20,
               child: FloatingActionButton(
                 onPressed: () {
-                  
+                  // Add your logout logic here
                 },
                 backgroundColor: Colors.red,
                 child: Icon(Icons.logout),
@@ -100,7 +100,7 @@ class DashboardPage extends StatelessWidget {
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent, 
+    statusBarColor: Colors.transparent, // Make status bar transparent
   ));
   runApp(MaterialApp(
     home: DashboardPage(),

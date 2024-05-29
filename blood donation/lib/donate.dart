@@ -9,18 +9,19 @@ void main() {
 
 class DonatePage extends StatefulWidget {
   @override
-  _RegisterPageState createState() => _RegisterPageState();
+  _DonatePageState createState() => _DonatePageState();
 }
 
-class _RegisterPageState extends State<DonatePage> {
+class _DonatePageState extends State<DonatePage> {
+  final _formKey = GlobalKey<FormState>();
   TextEditingController _fullNameController = TextEditingController();
   TextEditingController _LocationController = TextEditingController();
+  TextEditingController _EmailController = TextEditingController();
   TextEditingController _DateController = TextEditingController();
   TextEditingController _TimeController = TextEditingController();
-  TextEditingController _PriordonationController = TextEditingController();
   TextEditingController _AllergiesController = TextEditingController();
-
-  String? _selectedGender;
+  String _priorDonation = 'No';
+  String _bloodGroup = 'A+';
 
   Widget _buildOvalTextFieldWithIcon({
     required TextEditingController controller,
@@ -29,6 +30,7 @@ class _RegisterPageState extends State<DonatePage> {
     required BuildContext context,
     bool isDateField = false,
     bool isTimeField = false,
+    String? Function(String?)? validator,
   }) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8.0),
@@ -59,6 +61,7 @@ class _RegisterPageState extends State<DonatePage> {
                 contentPadding: EdgeInsets.only(
                     left: 20.0, right: 10.0, top: 16.0, bottom: 16.0),
               ),
+              validator: validator,
             ),
           ),
           if (isDateField)
@@ -102,9 +105,60 @@ class _RegisterPageState extends State<DonatePage> {
     );
   }
 
-  void signUp() {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text('Create Account clicked')));
+  Widget _buildOvalDropdown({
+    required String labelText,
+    required IconData icon,
+    required BuildContext context,
+    required String currentValue,
+    required List<String> items,
+    required Function(String?) onChanged,
+  }) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 8.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30.0),
+        color: Colors.white,
+        border: Border.all(color: Colors.red),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.white,
+            blurRadius: 5.0,
+            offset: Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: DropdownButtonFormField<String>(
+              decoration: InputDecoration(
+                labelText: labelText,
+                prefixIcon: Icon(
+                  icon,
+                  color: Colors.blueAccent,
+                ),
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.only(
+                    left: 20.0, right: 10.0, top: 16.0, bottom: 16.0),
+              ),
+              items: items.map((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+              onChanged: onChanged,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please select a $labelText';
+                }
+                return null;
+              },
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -123,64 +177,133 @@ class _RegisterPageState extends State<DonatePage> {
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           padding: EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _buildOvalTextFieldWithIcon(
-                controller: _fullNameController,
-                labelText: 'Full Name',
-                icon: Icons.person,
-                context: context,
-              ),
-              _buildOvalTextFieldWithIcon(
-                controller: _LocationController,
-                labelText: 'Location',
-                icon: Icons.location_city,
-                context: context,
-              ),
-              _buildOvalTextFieldWithIcon(
-                controller: _DateController,
-                labelText: 'Date',
-                icon: Icons.date_range,
-                context: context,
-                isDateField: true,
-              ),
-              _buildOvalTextFieldWithIcon(
-                controller: _TimeController,
-                labelText: 'Time',
-                icon: Icons.time_to_leave,
-                context: context,
-                isTimeField: true,
-              ),
-              _buildOvalTextFieldWithIcon(
-                controller: _PriordonationController,
-                labelText: 'prior donation',
-                icon: Icons.card_giftcard,
-                context: context,
-              ),
-              _buildOvalTextFieldWithIcon(
-                controller: _AllergiesController,
-                labelText: 'Allergies/diseases',
-                icon: Icons.lock,
-                context: context,
-              ),
-              SizedBox(height: 16.0),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => Home()));
-                },
-                child: Text('Request Donation',
-                    style: TextStyle(color: Colors.white)),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
-                  elevation: 0.0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                _buildOvalTextFieldWithIcon(
+                  controller: _fullNameController,
+                  labelText: 'Full Name',
+                  icon: Icons.person,
+                  context: context,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your full name';
+                    }
+                    return null;
+                  },
+                ),
+                _buildOvalTextFieldWithIcon(
+                  controller: _LocationController,
+                  labelText: 'Location',
+                  icon: Icons.location_city,
+                  context: context,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your location';
+                    }
+                    return null;
+                  },
+                ),
+                _buildOvalDropdown(
+                  labelText: 'Blood Group',
+                  icon: Icons.bloodtype,
+                  context: context,
+                  currentValue: _bloodGroup,
+                  items: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      _bloodGroup = newValue!;
+                    });
+                  },
+                ),
+                _buildOvalTextFieldWithIcon(
+                  controller: _EmailController,
+                  labelText: 'Email',
+                  icon: Icons.email,
+                  context: context,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your email address';
+                    } else if (!RegExp(
+                            r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+                        .hasMatch(value)) {
+                      return 'Please enter a valid email address';
+                    }
+                    return null;
+                  },
+                ),
+                _buildOvalTextFieldWithIcon(
+                  controller: _DateController,
+                  labelText: 'Date',
+                  icon: Icons.date_range,
+                  context: context,
+                  isDateField: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please select a date';
+                    }
+                    return null;
+                  },
+                ),
+                _buildOvalTextFieldWithIcon(
+                  controller: _TimeController,
+                  labelText: 'Time',
+                  icon: Icons.access_time,
+                  context: context,
+                  isTimeField: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please select a time';
+                    }
+                    return null;
+                  },
+                ),
+                _buildOvalDropdown(
+                  labelText: 'Prior Donation',
+                  icon: Icons.card_giftcard,
+                  context: context,
+                  currentValue: _priorDonation,
+                  items: ['Yes', 'No'],
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      _priorDonation = newValue!;
+                    });
+                  },
+                ),
+                _buildOvalTextFieldWithIcon(
+                  controller: _AllergiesController,
+                  labelText: 'Allergies/diseases',
+                  icon: Icons.local_hospital,
+                  context: context,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter any allergies or diseases';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 16.0),
+                ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Home()));
+                    }
+                  },
+                  child: Text('Request Donation',
+                      style: TextStyle(color: Colors.white)),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    elevation: 0.0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -191,9 +314,9 @@ class _RegisterPageState extends State<DonatePage> {
   void dispose() {
     _fullNameController.dispose();
     _LocationController.dispose();
+    _EmailController.dispose();
     _DateController.dispose();
     _TimeController.dispose();
-    _PriordonationController.dispose();
     _AllergiesController.dispose();
     super.dispose();
   }
