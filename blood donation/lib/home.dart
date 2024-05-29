@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:practice02/donate.dart';
-import 'package:practice02/instruction.dart';
 
 class DashboardPage extends StatelessWidget {
   @override
@@ -21,75 +19,76 @@ class DashboardPage extends StatelessWidget {
         ),
       ),
       body: SafeArea(
-        child: Column(
+        child: Stack(
           children: [
-            SizedBox(height: 20),
-            Expanded(
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    BloodDonationGuidelines()));
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                      ),
-                      child: Ink.image(
-                        image: AssetImage('assets/donate.jpeg'),
-                        fit: BoxFit.cover,
-                        width: 200,
-                        height: 200,
-                        child: Container(),
-                      ),
+            Column(
+              children: [
+                SizedBox(height: 20),
+                Expanded(
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            // Add your onPressed code here!
+                          },
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                          ),
+                          child: Ink.image(
+                            image: AssetImage('assets/donate.jpeg'),
+                            fit: BoxFit.cover,
+                            width: 200,
+                            height: 200,
+                            child: Container(),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: () {
+                            // Add your onPressed code here!
+                          },
+                          child: Text('Guide'),
+                        ),
+                        SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: () {
+                            // Add your onPressed code here!
+                          },
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                          ),
+                          child: Ink.image(
+                            image: AssetImage('assets/guide.jpeg'),
+                            fit: BoxFit.cover,
+                            width: 200,
+                            height: 200,
+                            child: Container(),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: () {
+                            // Add your onPressed code here!
+                          },
+                          child: Text('Donate'),
+                        ),
+                      ],
                     ),
-                    SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    BloodDonationGuidelines()));
-                      },
-                      child: Text('Guide'),
-                    ),
-                    SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => DonatePage()));
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                      ),
-                      child: Ink.image(
-                        image: AssetImage('assets/guide.jpeg'),
-                        fit: BoxFit.cover,
-                        width: 200,
-                        height: 200,
-                        child: Container(),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => DonatePage()));
-                      },
-                      child: Text('Donate'),
-                    ),
-                  ],
+                  ),
                 ),
+              ],
+            ),
+            Positioned(
+              bottom: 20,
+              right: 20,
+              child: FloatingActionButton(
+                onPressed: () {
+                  // Add your logout logic here
+                },
+                backgroundColor: Colors.red,
+                child: Icon(Icons.logout),
               ),
             ),
           ],

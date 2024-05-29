@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+
+import 'package:practice02/home.dart';
 import 'package:practice02/donate.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:practice02/home.dart';
 import 'package:practice02/login.dart';
+
 import 'package:practice02/register.dart';
 import 'package:practice02/welcome.dart';
 
