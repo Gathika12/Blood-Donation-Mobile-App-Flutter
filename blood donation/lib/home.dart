@@ -6,74 +6,89 @@ class DashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(60.0), 
+        preferredSize: Size.fromHeight(60.0),
         child: AppBar(
-          backgroundColor: Colors.red, 
-          automaticallyImplyLeading: false, 
+          backgroundColor: Colors.red,
+          automaticallyImplyLeading: false,
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.pop(context); 
+              Navigator.pop(context);
             },
           ),
         ),
       ),
       body: SafeArea(
-        child: Column(
+        child: Stack(
           children: [
-            SizedBox(height: 20), 
-            Expanded(
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                      ),
-                      child: Ink.image(
-                        image: AssetImage('assets/donate.jpeg'),
-                        fit: BoxFit.cover,
-                        width: 200,
-                        height: 200,
-                        child: Container(),
-                      ),
+            Column(
+              children: [
+                SizedBox(height: 20),
+                Expanded(
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            
+                          },
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                          ),
+                          child: Ink.image(
+                            image: AssetImage('assets/donate.jpeg'),
+                            fit: BoxFit.cover,
+                            width: 200,
+                            height: 200,
+                            child: Container(),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: () {
+                            
+                          },
+                          child: Text('Guide'),
+                        ),
+                        SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: () {
+                            
+                          },
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                          ),
+                          child: Ink.image(
+                            image: AssetImage('assets/guide.jpeg'),
+                            fit: BoxFit.cover,
+                            width: 200,
+                            height: 200,
+                            child: Container(),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: () {
+                            
+                          },
+                          child: Text('Donate'),
+                        ),
+                      ],
                     ),
-                    SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () {
-                        
-                      },
-                      child: Text('Guide'),
-                    ),
-                    SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () {
-                        
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                      ),
-                      child: Ink.image(
-                        image: AssetImage('assets/guide.jpeg'),
-                        fit: BoxFit.cover,
-                        width: 200,
-                        height: 200,
-                        child: Container(),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () {
-                        
-                      },
-                      child: Text('Donate'),
-                    ),
-                  ],
+                  ),
                 ),
+              ],
+            ),
+            Positioned(
+              bottom: 20,
+              right: 20,
+              child: FloatingActionButton(
+                onPressed: () {
+                  
+                },
+                backgroundColor: Colors.red,
+                child: Icon(Icons.logout),
               ),
             ),
           ],
@@ -85,7 +100,7 @@ class DashboardPage extends StatelessWidget {
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent, // Make status bar transparent
+    statusBarColor: Colors.transparent, 
   ));
   runApp(MaterialApp(
     home: DashboardPage(),

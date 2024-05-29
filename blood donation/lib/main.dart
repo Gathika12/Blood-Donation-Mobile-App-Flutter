@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:practice02/home.dart';
 import 'package:practice02/register.dart';
 
 
@@ -20,7 +21,7 @@ void main() async {
 */
   runApp(MaterialApp(
 
-    home: RegisterPage(),
+    home: DashboardPage(),
 
   ));
 }
