@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:practice02/home.dart';
 import 'package:practice02/login.dart';
 
 void main() {
@@ -167,8 +168,8 @@ class _RegisterPageState extends State<DonatePage> {
               SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => Home()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => DashboardPage()));
                 },
                 child: Text('Request Donation',
                     style: TextStyle(color: Colors.white)),
