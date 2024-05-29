@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:practice02/login.dart';
 
@@ -88,8 +90,17 @@ class _RegisterPageState extends State<RegisterPage> {
             _selectedBloodGroup = newValue;
           });
         },
-        items: ['Select Blood Group','A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
-            .map<DropdownMenuItem<String>>((String value) {
+        items: [
+          'Select Blood Group',
+          'A+',
+          'A-',
+          'B+',
+          'B-',
+          'AB+',
+          'AB-',
+          'O+',
+          'O-'
+        ].map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
             child: Text(
@@ -130,7 +141,7 @@ class _RegisterPageState extends State<RegisterPage> {
             _selectedGender = newValue;
           });
         },
-        items: ['Select Gender','Male', 'Female', 'Other']
+        items: ['Select Gender', 'Male', 'Female', 'Other']
             .map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
@@ -151,21 +162,20 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'Create Your Account',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.red, 
+        backgroundColor: Colors.red,
         elevation: 0.0,
       ),
-      backgroundColor: Colors.white, 
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min, 
+          mainAxisSize: MainAxisSize.min,
           children: [
             _buildOvalTextFieldWithIcon(
               controller: _firstNameController,
@@ -177,7 +187,7 @@ class _RegisterPageState extends State<RegisterPage> {
               labelText: 'Last Name',
               icon: Icons.person,
             ),
-            _buildGenderDropdown(), 
+            _buildGenderDropdown(),
             _buildBloodGroupDropdown(),
             _buildOvalTextFieldWithIcon(
               controller: _emailController,
@@ -204,23 +214,29 @@ class _RegisterPageState extends State<RegisterPage> {
               labelText: 'Retype Password',
               icon: Icons.lock,
             ),
-
             SizedBox(height: 16.0),
             ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Home()));
-              },
-              child: Text('Create Account',
-                  style: TextStyle(color: Colors.white)),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
-                elevation: 0.0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                )
-              )
-            )
+                onPressed: () {
+                  FirebaseAuth.instance
+                      .createUserWithEmailAndPassword(
+                          email: _emailController.text,
+                          password: _passwordController.text)
+                      .then((value) {
+                    print("Created New Account");
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Home()));
+                  }).onError((error, stackTrace) {
+                    print("Error ${error.toString()}");
+                  });
+                },
+                child: Text('Create Account',
+                    style: TextStyle(color: Colors.white)),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    elevation: 0.0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    )))
           ],
         ),
       ),
