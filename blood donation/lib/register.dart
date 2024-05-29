@@ -340,28 +340,30 @@ class _RegisterPageState extends State<RegisterPage> {
                     return null;
                   },
                 ),
-                SizedBox(height: 16.0),
-                ElevatedButton(
-                  onPressed: () {
-                    FirebaseAuth.instance
-                        .createUserWithEmailAndPassword(
-                            email: _emailController.text,
-                            password: _passwordController.text)
-                        .then((value) {
-                      print("Created your account");
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Home()));
-                    }).onError((error, stackTrace) {
-                      print("Error ${error.toString()}");
-                    });
-                  },
-                  child: Text('Create Account',
-                      style: TextStyle(color: Colors.white)),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                    elevation: 0.0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
+             ElevatedButton(
+  onPressed: () {
+    if (_formKey.currentState!.validate()) {
+      FirebaseAuth.instance
+        .createUserWithEmailAndPassword(
+          email: _emailController.text,
+          password: _passwordController.text)
+        .then((value) {
+          print("Created your account");
+          Navigator.push(context,
+            MaterialPageRoute(builder: (context) => Home()));
+        }).onError((error, stackTrace) {
+          print("Error ${error.toString()}");
+        });
+    }
+  },
+  child: Text(
+    'Create Account',
+    style: TextStyle(color: Colors.white),
+  ),
+  style: ElevatedButton.styleFrom(
+    foregroundColor: Colors.white, backgroundColor: Colors.red,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(30.0),
                     ),
                   ),
                 )
