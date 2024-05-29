@@ -9,6 +9,7 @@ class _HomeState extends State<Home> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _nameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
+  bool _isObscure = true; // State variable to track password visibility
 
   @override
   Widget build(BuildContext context) {
@@ -43,11 +44,12 @@ class _HomeState extends State<Home> {
                     TextFormField(
                       controller: _nameController,
                       decoration: InputDecoration(
-                          labelText: 'Email',
-                          hintText: 'GathikaColambage@gmail.com',
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          )),
+                        labelText: 'Email',
+                        hintText: 'GathikaColambage@gmail.com',
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
+                      ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your name';
@@ -59,17 +61,31 @@ class _HomeState extends State<Home> {
                     TextFormField(
                       controller: _emailController,
                       decoration: InputDecoration(
-                          labelText: 'PassWord',
-                          hintText: 'example@gmail.com',
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          )),
+                        labelText: 'Password',
+                        hintText: 'Enter your password',
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _isObscure
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _isObscure = !_isObscure;
+                            });
+                          },
+                        ),
+                      ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter your email';
+                          return 'Please enter your password';
                         }
                         return null;
                       },
+                      obscureText: _isObscure,
                     ),
                     SizedBox(height: 16),
                     Center(

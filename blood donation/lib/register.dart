@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:practice02/login.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -24,11 +23,14 @@ class _RegisterPageState extends State<RegisterPage> {
 
   String? _selectedGender;
   String? _selectedBloodGroup;
+  bool _obscurePassword = true;
 
   Widget _buildOvalTextFieldWithIcon({
     required TextEditingController controller,
     required String labelText,
     required IconData icon,
+    bool obscureText = false,
+    bool isPassword = false,
   }) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8.0),
@@ -46,12 +48,26 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
       child: TextFormField(
         controller: controller,
+        obscureText: isPassword ? _obscurePassword : obscureText,
         decoration: InputDecoration(
           labelText: labelText,
           prefixIcon: Icon(
             icon,
             color: Colors.blueAccent,
           ),
+          suffixIcon: isPassword
+              ? IconButton(
+                  icon: Icon(
+                    _obscurePassword ? Icons.visibility : Icons.visibility_off,
+                    color: Colors.blueAccent,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _obscurePassword = !_obscurePassword;
+                    });
+                  },
+                )
+              : null,
           border: InputBorder.none,
           contentPadding:
               EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
@@ -88,8 +104,17 @@ class _RegisterPageState extends State<RegisterPage> {
             _selectedBloodGroup = newValue;
           });
         },
-        items: ['Select Blood Group','A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
-            .map<DropdownMenuItem<String>>((String value) {
+        items: [
+          'Select Blood Group',
+          'A+',
+          'A-',
+          'B+',
+          'B-',
+          'AB+',
+          'AB-',
+          'O+',
+          'O-'
+        ].map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
             child: Text(
@@ -130,7 +155,7 @@ class _RegisterPageState extends State<RegisterPage> {
             _selectedGender = newValue;
           });
         },
-        items: ['Select Gender','Male', 'Female', 'Other']
+        items: ['Select Gender', 'Male', 'Female', 'Other']
             .map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
@@ -151,21 +176,20 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'Create Your Account',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.red, 
+        backgroundColor: Colors.red,
         elevation: 0.0,
       ),
-      backgroundColor: Colors.white, 
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min, 
+          mainAxisSize: MainAxisSize.min,
           children: [
             _buildOvalTextFieldWithIcon(
               controller: _firstNameController,
@@ -177,7 +201,7 @@ class _RegisterPageState extends State<RegisterPage> {
               labelText: 'Last Name',
               icon: Icons.person,
             ),
-            _buildGenderDropdown(), 
+            _buildGenderDropdown(),
             _buildBloodGroupDropdown(),
             _buildOvalTextFieldWithIcon(
               controller: _emailController,
@@ -198,29 +222,32 @@ class _RegisterPageState extends State<RegisterPage> {
               controller: _passwordController,
               labelText: 'Password',
               icon: Icons.lock,
+              obscureText: true,
+              isPassword: true,
             ),
             _buildOvalTextFieldWithIcon(
               controller: _retypePasswordController,
               labelText: 'Retype Password',
               icon: Icons.lock,
+              obscureText: true,
+              isPassword: true,
             ),
-
             SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Home()));
+                // Handle sign up logic here
+                signUp();
               },
-              child: Text('Create Account',
-                  style: TextStyle(color: Colors.white)),
+              child:
+                  Text('Create Account', style: TextStyle(color: Colors.white)),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red,
                 elevation: 0.0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0),
-                )
-              )
-            )
+                ),
+              ),
+            ),
           ],
         ),
       ),

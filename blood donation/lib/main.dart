@@ -22,7 +22,7 @@ void main() async {
   }
 */
   runApp(MaterialApp(
-    home: DonatePage(),
+    home: RegisterPage(),
   ));
 }
 
