@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:practice02/home.dart';
+import 'package:practice02/login.dart';
 import 'package:practice02/register.dart';
-
+import 'package:practice02/welcome.dart';
 
 void main() async {
   /*WidgetsFlutterBinding.ensureInitialized();
@@ -19,9 +21,7 @@ void main() async {
   }
 */
   runApp(MaterialApp(
-
-    home: RegisterPage(),
-
+    home: Welcome(),
   ));
 }
 

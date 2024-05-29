@@ -61,7 +61,7 @@ class WelcomePage extends State<Welcome> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Home()));
+                                    builder: (context) => RegisterPage()));
                           },
                           style: TextButton.styleFrom(
                               backgroundColor: Colors.red,
