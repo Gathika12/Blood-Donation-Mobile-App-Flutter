@@ -1,4 +1,13 @@
+<<<<<<< HEAD
 import 'package:flutter/material.dart';
+=======
+import 'dart:async';
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:practice02/login.dart';
+>>>>>>> Ashen
 
 void main() {
   runApp(MaterialApp(
@@ -12,6 +21,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  final _formKey = GlobalKey<FormState>();
   TextEditingController _firstNameController = TextEditingController();
   TextEditingController _lastNameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
@@ -29,8 +39,13 @@ class _RegisterPageState extends State<RegisterPage> {
     required TextEditingController controller,
     required String labelText,
     required IconData icon,
+<<<<<<< HEAD
     bool obscureText = false,
     bool isPassword = false,
+=======
+    bool isPassword = false,
+    required String? Function(String?)? validator,
+>>>>>>> Ashen
   }) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8.0),
@@ -48,7 +63,11 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
       child: TextFormField(
         controller: controller,
+<<<<<<< HEAD
         obscureText: isPassword ? _obscurePassword : obscureText,
+=======
+        obscureText: isPassword,
+>>>>>>> Ashen
         decoration: InputDecoration(
           labelText: labelText,
           prefixIcon: Icon(
@@ -72,8 +91,39 @@ class _RegisterPageState extends State<RegisterPage> {
           contentPadding:
               EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
         ),
+        validator: validator,
       ),
     );
+  }
+
+  Future<void> sendEmail({
+    required String firstName,
+    required String lastName,
+    required String username,
+    required String password,
+  }) async {
+    final serviceId = 'service_na7bm48';
+    final templateId = 'template_l0yxn67';
+    final userId = 'your_user_id'; 
+
+    final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'service_id': serviceId,
+        'template_id': templateId,
+        'user_id': userId,
+        'template_params': {
+          'first_name': firstName,
+          'last_name': lastName,
+          'username': username,
+          'password': password,
+        }
+      }),
+    );
+
+    print(response.body);
   }
 
   Widget _buildBloodGroupDropdown() {
@@ -105,15 +155,7 @@ class _RegisterPageState extends State<RegisterPage> {
           });
         },
         items: [
-          'Select Blood Group',
-          'A+',
-          'A-',
-          'B+',
-          'B-',
-          'AB+',
-          'AB-',
-          'O+',
-          'O-'
+          'Select Blood Group', 'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'
         ].map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
@@ -123,6 +165,12 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           );
         }).toList(),
+        validator: (value) {
+          if (value == null || value == 'Select Blood Group') {
+            return 'Please select a blood group';
+          }
+          return null;
+        },
       ),
     );
   }
@@ -155,8 +203,9 @@ class _RegisterPageState extends State<RegisterPage> {
             _selectedGender = newValue;
           });
         },
-        items: ['Select Gender', 'Male', 'Female', 'Other']
-            .map<DropdownMenuItem<String>>((String value) {
+        items: [
+          'Select Gender', 'Male', 'Female', 'Other'
+        ].map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
             child: Text(
@@ -165,13 +214,35 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           );
         }).toList(),
+        validator: (value) {
+          if (value == null || value == 'Select Gender') {
+            return 'Please select a gender';
+          }
+          return null;
+        },
       ),
     );
   }
 
-  void signUp() {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text('Create Account clicked')));
+  void signUp() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        await sendEmail(
+          firstName: _firstNameController.text,
+          lastName: _lastNameController.text,
+          username: _usernameController.text,
+          password: _passwordController.text,
+        );
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Home()),
+        );
+      } catch (error) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to send email: $error')),
+        );
+      }
+    }
   }
 
   @override
@@ -186,6 +257,7 @@ class _RegisterPageState extends State<RegisterPage> {
         elevation: 0.0,
       ),
       backgroundColor: Colors.white,
+<<<<<<< HEAD
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -249,6 +321,124 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
             ),
           ],
+=======
+      body: SafeArea(  // Added SafeArea here
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _buildOvalTextFieldWithIcon(
+                  controller: _firstNameController,
+                  labelText: 'First Name',
+                  icon: Icons.person,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your first name';
+                    }
+                    return null;
+                  },
+                ),
+                _buildOvalTextFieldWithIcon(
+                  controller: _lastNameController,
+                  labelText: 'Last Name',
+                  icon: Icons.person,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your last name';
+                    }
+                    return null;
+                  },
+                ),
+                _buildGenderDropdown(),
+                _buildBloodGroupDropdown(),
+                _buildOvalTextFieldWithIcon(
+                  controller: _emailController,
+                  labelText: 'Email',
+                  icon: Icons.email,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your email';
+                    }
+                    if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                      return 'Please enter a valid email';
+                    }
+                    return null;
+                  },
+                ),
+                _buildOvalTextFieldWithIcon(
+                  controller: _contactNoController,
+                  labelText: 'Contact No',
+                  icon: Icons.phone,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your contact number';
+                    }
+                    if (!RegExp(r'^\d{10}$').hasMatch(value)) {
+                      return 'Please enter a valid contact number';
+                    }
+                    return null;
+                  },
+                ),
+                _buildOvalTextFieldWithIcon(
+                  controller: _usernameController,
+                  labelText: 'Username',
+                  icon: Icons.account_circle,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a username';
+                    }
+                    return null;
+                  },
+                ),
+                _buildOvalTextFieldWithIcon(
+                  controller: _passwordController,
+                  labelText: 'Password',
+                  icon: Icons.lock,
+                  isPassword: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a password';
+                    }
+                    if (value.length < 6) {
+                      return 'Password must be at least 6 characters';
+                    }
+                    return null;
+                  },
+                ),
+                _buildOvalTextFieldWithIcon(
+                  controller: _retypePasswordController,
+                  labelText: 'Retype Password',
+                  icon: Icons.lock,
+                  isPassword: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please retype your password';
+                    }
+                    if (value != _passwordController.text) {
+                      return 'Passwords do not match';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 16.0),
+                ElevatedButton(
+                  onPressed: signUp,
+                  child: Text('Create Account', style: TextStyle(color: Colors.white)),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    elevation: 0.0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+>>>>>>> Ashen
         ),
       ),
     );
