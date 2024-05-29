@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:practice02/home.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -7,8 +10,26 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
+  TextEditingController _EmailController = TextEditingController();
+  TextEditingController _PasswordController = TextEditingController();
+
+  static Future<User?> loginUsingEmailPassword(
+      {required String email,
+      required String password,
+      required BuildContext context}) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user;
+    try {
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      user = userCredential.user;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "user-not-found") {
+        print("No user found for that email");
+      }
+    }
+    return user;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +62,7 @@ class _HomeState extends State<Home> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     TextFormField(
-                      controller: _nameController,
+                      controller: _EmailController,
                       decoration: InputDecoration(
                           labelText: 'Email',
                           hintText: 'GathikaColambage@gmail.com',
@@ -57,10 +78,10 @@ class _HomeState extends State<Home> {
                     ),
                     SizedBox(height: 20),
                     TextFormField(
-                      controller: _emailController,
+                      controller: _PasswordController,
                       decoration: InputDecoration(
                           labelText: 'PassWord',
-                          hintText: 'example@gmail.com',
+                          hintText: 'abc123',
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                           )),
@@ -82,7 +103,18 @@ class _HomeState extends State<Home> {
                           backgroundColor: Colors.red,
                           elevation: 0,
                         ),
-                        onPressed: () {},
+                        onPressed: () async {
+                          User? user = await loginUsingEmailPassword(
+                              email: _EmailController.text,
+                              password: _PasswordController.text,
+                              context: context);
+                          print(user);
+                          if (user != null) {
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) => DashboardPage()));
+                          }
+                        },
                       ),
                     )
                   ],

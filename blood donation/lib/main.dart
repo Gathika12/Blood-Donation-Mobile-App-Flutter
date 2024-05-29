@@ -1,26 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:practice02/donate.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:practice02/home.dart';
 import 'package:practice02/login.dart';
 import 'package:practice02/register.dart';
 import 'package:practice02/welcome.dart';
 
 void main() async {
-  /*WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
 
   if (kIsWeb) {
     await Firebase.initializeApp(
         options: const FirebaseOptions(
-            apiKey: "AIzaSyDUES_gU8F2TJMWKsyK2fdT6PyRTfrYZoQ",
-            authDomain: "practice-app-42316.firebaseapp.com",
-            projectId: "practice-app-42316",
-            storageBucket: "practice-app-42316.appspot.com",
-            messagingSenderId: "640261579967",
-            appId: "1:640261579967:web:a17a76f4cd82d006ba920a"));
+            apiKey: "AIzaSyDK4FxslOXgh0KnlqSdbbyVWyIdddKljts",
+            authDomain: "blood-donation-92d7a.firebaseapp.com",
+            projectId: "blood-donation-92d7a",
+            storageBucket: "blood-donation-92d7a.appspot.com",
+            messagingSenderId: "1012394506879",
+            appId: "1:1012394506879:android:79e7947219187b2ba45d4a"));
   } else {
     await Firebase.initializeApp();
   }
-*/
+
   runApp(MaterialApp(
     home: DonatePage(),
   ));
