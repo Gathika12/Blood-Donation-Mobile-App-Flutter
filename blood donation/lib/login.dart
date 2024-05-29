@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:practice02/home.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -7,9 +10,26 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _nameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
-  bool _isObscure = true; // State variable to track password visibility
+  TextEditingController _passwordController = TextEditingController();
+  bool _isObscure = true;
+
+  static Future<User?> loginUsingEmailPassword(
+      {required String email,
+      required String password,
+      required BuildContext context}) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user;
+    try {
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      user = userCredential.user;
+    } on FirebaseException catch (e) {
+      if (e.code == "user-not-found") {
+        print("No user found for that email");
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +62,7 @@ class _HomeState extends State<Home> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     TextFormField(
-                      controller: _nameController,
+                      controller: _emailController,
                       decoration: InputDecoration(
                         labelText: 'Email',
                         hintText: 'GathikaColambage@gmail.com',
@@ -59,7 +79,7 @@ class _HomeState extends State<Home> {
                     ),
                     SizedBox(height: 20),
                     TextFormField(
-                      controller: _emailController,
+                      controller: _passwordController,
                       decoration: InputDecoration(
                         labelText: 'Password',
                         hintText: 'Enter your password',
@@ -98,7 +118,18 @@ class _HomeState extends State<Home> {
                           backgroundColor: Colors.red,
                           elevation: 0,
                         ),
-                        onPressed: () {},
+                        onPressed: () async {
+                          FirebaseAuth.instance
+                              .signInWithEmailAndPassword(
+                                  email: _emailController.text,
+                                  password: _passwordController.text)
+                              .then((value) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DashboardPage()));
+                          });
+                        },
                       ),
                     )
                   ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:practice02/login.dart';
 
 class DashboardPage extends StatelessWidget {
   @override
@@ -85,7 +86,8 @@ class DashboardPage extends StatelessWidget {
               right: 20,
               child: FloatingActionButton(
                 onPressed: () {
-                  // Add your logout logic here
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => Home()));
                 },
                 backgroundColor: Colors.red,
                 child: Icon(Icons.logout),

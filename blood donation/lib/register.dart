@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:practice02/login.dart';
@@ -341,7 +342,19 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 SizedBox(height: 16.0),
                 ElevatedButton(
-                  onPressed: signUp,
+                  onPressed: () {
+                    FirebaseAuth.instance
+                        .createUserWithEmailAndPassword(
+                            email: _emailController.text,
+                            password: _passwordController.text)
+                        .then((value) {
+                      print("Created your account");
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Home()));
+                    }).onError((error, stackTrace) {
+                      print("Error ${error.toString()}");
+                    });
+                  },
                   child: Text('Create Account',
                       style: TextStyle(color: Colors.white)),
                   style: ElevatedButton.styleFrom(
