@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:practice02/home.dart';
+import 'package:practice02/instruction.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -142,10 +144,13 @@ class _HomeState extends State<Home> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Add your onPressed logic here
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => BloodDonationGuidelines()));
         },
         tooltip: 'Press',
-        child: Icon(Icons.help),
+        child: Icon(Icons.announcement),
       ),
     );
   }

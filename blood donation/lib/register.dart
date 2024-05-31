@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -355,6 +356,20 @@ class _RegisterPageState extends State<RegisterPage> {
                         print("Error ${error.toString()}");
                       });
                     }
+
+                    CollectionReference collRef =
+                        FirebaseFirestore.instance.collection("clients");
+                    collRef.add(
+                      {
+                        'First Name': _firstNameController.text,
+                        'Last Name': _lastNameController.text,
+                        'Email': _emailController.text,
+                        'Contact No': _contactNoController.text,
+                        'Username': _usernameController.text,
+                        'Password': _passwordController.text,
+                        'Retype Password': _retypePasswordController.text,
+                      },
+                    );
                   },
                   child: Text(
                     'Create Account',

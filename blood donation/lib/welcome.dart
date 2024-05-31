@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:practice02/instruction.dart';
 import 'package:practice02/login.dart';
 import 'package:practice02/register.dart';
 
@@ -83,10 +84,13 @@ class WelcomePage extends State<Welcome> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Add your onPressed logic here
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => BloodDonationGuidelines()));
         },
         tooltip: 'Press',
-        child: Icon(Icons.help),
+        child: Icon(Icons.announcement),
       ),
     );
   }
