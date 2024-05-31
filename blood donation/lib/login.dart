@@ -39,7 +39,7 @@ class _HomeState extends State<Home> {
           'Login In To Your Account ',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.red, // Red background color
+        backgroundColor: Colors.red,
         elevation: 0.0,
       ),
       body: SingleChildScrollView(
@@ -48,12 +48,13 @@ class _HomeState extends State<Home> {
             // Image above the form
             Image(
               image: AssetImage(
-                  'assets/logo1.jpg'), // Replace 'assets/image.jpg' with the path to your local image
+                  'assets/logo1NEW3.jpg'), // Replace 'assets/image.jpg' with the path to your local image
               height: 500,
               width: double.infinity,
               fit: BoxFit.cover,
             ),
-            SizedBox(height: 20),
+
+            SizedBox(height: 10),
             Padding(
               padding: EdgeInsets.all(16.0),
               child: Form(

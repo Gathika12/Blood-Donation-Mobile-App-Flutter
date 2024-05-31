@@ -22,13 +22,12 @@ class WelcomePage extends State<Welcome> {
             children: <Widget>[
               // Image above the form
               Image(
-                image: AssetImage(
-                    'assets/6.jpg'), // Replace 'assets/image.jpg' with the path to your local image
+                image: AssetImage('assets/Give the Gift of Life.png'),
                 height: 520,
                 width: double.infinity,
                 fit: BoxFit.cover,
               ),
-              SizedBox(height: 30),
+              SizedBox(height: 5),
               Padding(
                 padding: EdgeInsets.all(16.0),
                 child: Form(
