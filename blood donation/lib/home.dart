@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:practice02/donate.dart';
 import 'package:practice02/instruction.dart';
 import 'package:practice02/login.dart';
+import 'package:practice02/drawer.dart';
 
 class DashboardPage extends StatelessWidget {
   @override
@@ -11,14 +12,18 @@ class DashboardPage extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60.0),
         child: AppBar(
+          title: Text(
+            "Give the Gift of Life",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Roboto',
+            ),
+          ),
           backgroundColor: Colors.red,
           automaticallyImplyLeading: false,
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
+          centerTitle: true,
         ),
       ),
       body: SafeArea(
@@ -112,6 +117,7 @@ class DashboardPage extends StatelessWidget {
           ],
         ),
       ),
+      endDrawer: MyDrawer(),
     );
   }
 }
