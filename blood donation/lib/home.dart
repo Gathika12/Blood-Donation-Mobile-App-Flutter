@@ -4,6 +4,7 @@ import 'package:practice02/donate.dart';
 import 'package:practice02/instruction.dart';
 import 'package:practice02/login.dart';
 import 'package:practice02/drawer.dart';
+import 'package:practice02/welcome.dart';
 
 class DashboardPage extends StatelessWidget {
   @override
@@ -22,6 +23,7 @@ class DashboardPage extends StatelessWidget {
             ),
           ),
           backgroundColor: Colors.red,
+          forceMaterialTransparency: false,
           automaticallyImplyLeading: false,
           centerTitle: true,
         ),
@@ -29,9 +31,14 @@ class DashboardPage extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
+            Positioned.fill(
+              child: Image.asset(
+                'assets/bk1.jpg',
+                fit: BoxFit.cover,
+              ),
+            ),
             Column(
               children: [
-                SizedBox(height: 20),
                 Expanded(
                   child: Center(
                     child: Column(
@@ -49,7 +56,7 @@ class DashboardPage extends StatelessWidget {
                             padding: EdgeInsets.zero,
                           ),
                           child: Ink.image(
-                            image: AssetImage('assets/donate.jpeg'),
+                            image: AssetImage('assets/guidebkremoved.png'),
                             fit: BoxFit.cover,
                             width: 200,
                             height: 200,
@@ -79,7 +86,7 @@ class DashboardPage extends StatelessWidget {
                             padding: EdgeInsets.zero,
                           ),
                           child: Ink.image(
-                            image: AssetImage('assets/guide.jpeg'),
+                            image: AssetImage('assets/bloodbkremoved.png'),
                             fit: BoxFit.cover,
                             width: 200,
                             height: 200,
@@ -107,8 +114,8 @@ class DashboardPage extends StatelessWidget {
               right: 20,
               child: FloatingActionButton(
                 onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => Home()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Welcome()));
                 },
                 backgroundColor: Colors.red,
                 child: Icon(Icons.logout),
@@ -124,7 +131,7 @@ class DashboardPage extends StatelessWidget {
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent, // Make status bar transparent
+    statusBarColor: Colors.transparent,
   ));
   runApp(MaterialApp(
     home: DashboardPage(),

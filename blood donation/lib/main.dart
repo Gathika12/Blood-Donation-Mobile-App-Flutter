@@ -26,7 +26,7 @@ void main() async {
   }
 
   runApp(MaterialApp(
-    home: DashboardPage(),
+    home: Welcome(),
   ));
 }
 
